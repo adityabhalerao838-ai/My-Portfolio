@@ -42,8 +42,8 @@ const PROJECTS: Project[] = [
 const SKILLS = [
   {
     n: "01",
-    title: "C++",
-    body: "Core language work: syntax, memory model, STL fundamentals and problem-solving through structured practice.",
+    title: "Prompt Engineering",
+    body: "Designing structured, context-rich prompts to get reliable, production-quality output from modern LLMs — for real product work, not just demos.",
   },
   {
     n: "02",
