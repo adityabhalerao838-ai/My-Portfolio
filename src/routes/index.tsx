@@ -323,8 +323,9 @@ function About() {
           <p className="text-lg leading-relaxed text-foreground/85">
             I'm Aditya — a 2nd-year Diploma Computer Science student learning to
             build software the long way: from fundamentals up. My days move
-            between coursework, C++ problem-solving, and shipping small products
-            that make studying and everyday tasks a little easier.
+            between coursework, sharpening my prompt engineering craft, and
+            shipping small products that make studying and everyday tasks a
+            little easier.
           </p>
           <p className="mt-5 text-base leading-relaxed text-muted-foreground">
             I care about clarity — in code, in interfaces, and in the way an app
@@ -348,7 +349,7 @@ function About() {
             </li>
             <li>
               <div className="font-serif text-lg">Learning daily</div>
-              <div className="text-muted-foreground">C++, AI, product craft</div>
+              <div className="text-muted-foreground">Prompt engineering, AI, product craft</div>
             </li>
           </ul>
         </div>
