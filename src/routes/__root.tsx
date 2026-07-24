@@ -78,7 +78,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Aditya Bhalerao — Computer Science Student & Developer" },
-      { name: "description", content: "Portfolio of Aditya Bhalerao — a 2nd-year Diploma Computer Science student and developer building thoughtful software with C++, AI, and modern web tools." },
+      { name: "description", content: "Portfolio of Aditya Bhalerao — a 2nd-year Diploma Computer Science student and developer building thoughtful software with prompt engineering, AI, and modern web tools." },
       { name: "author", content: "Aditya Bhalerao" },
       { name: "theme-color", content: "#12101a" },
       { property: "og:title", content: "Aditya Bhalerao — CS Student & Developer" },
