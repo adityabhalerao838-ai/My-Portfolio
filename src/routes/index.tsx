@@ -463,7 +463,7 @@ function Projects() {
 
 function Building() {
   const focus = [
-    "Strengthening C++ and DSA fundamentals",
+    "Sharpening prompt engineering and AI workflows",
     "Exploring practical AI / generative AI workflows",
     "Designing calmer, more focused student software",
     "Learning to ship — end-to-end, small and often",
