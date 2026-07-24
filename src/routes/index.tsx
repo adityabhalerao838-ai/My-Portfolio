@@ -559,95 +559,6 @@ function PhotoSection() {
   );
 }
 
-function ContactForm() {
-  const [errors, setErrors] = useState<Record<string, string>>({});
-  const [sent, setSent] = useState(false);
-  const nameRef = useRef<HTMLInputElement>(null);
-  const emailRef = useRef<HTMLInputElement>(null);
-  const msgRef = useRef<HTMLTextAreaElement>(null);
-
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const name = nameRef.current?.value.trim() ?? "";
-    const email = emailRef.current?.value.trim() ?? "";
-    const message = msgRef.current?.value.trim() ?? "";
-    const errs: Record<string, string> = {};
-    if (name.length < 2) errs.name = "Please share your name.";
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errs.email = "Enter a valid email.";
-    if (message.length < 10) errs.message = "Message should be a little more detailed.";
-    setErrors(errs);
-    if (Object.keys(errs).length > 0) return;
-
-    const subject = encodeURIComponent(`Portfolio inquiry — ${name}`);
-    const body = encodeURIComponent(`${message}\n\n— ${name}\n${email}`);
-    window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
-    setSent(true);
-  };
-
-  return (
-    <form onSubmit={onSubmit} noValidate className="glass-strong rounded-3xl p-6 sm:p-8">
-      <div className="grid gap-4 sm:grid-cols-2">
-        <label className="block">
-          <span className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">Name</span>
-          <input
-            ref={nameRef}
-            type="text"
-            required
-            aria-invalid={!!errors.name}
-            className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm outline-none transition focus:border-primary/60 focus:ring-2 focus:ring-primary/30"
-            placeholder="Your name"
-          />
-          {errors.name && <span className="mt-1 block text-xs text-destructive">{errors.name}</span>}
-        </label>
-        <label className="block">
-          <span className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">Email</span>
-          <input
-            ref={emailRef}
-            type="email"
-            required
-            aria-invalid={!!errors.email}
-            className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm outline-none transition focus:border-primary/60 focus:ring-2 focus:ring-primary/30"
-            placeholder="you@domain.com"
-          />
-          {errors.email && <span className="mt-1 block text-xs text-destructive">{errors.email}</span>}
-        </label>
-      </div>
-      <label className="mt-4 block">
-        <span className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">Message</span>
-        <textarea
-          ref={msgRef}
-          rows={5}
-          required
-          aria-invalid={!!errors.message}
-          className="w-full resize-none rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm outline-none transition focus:border-primary/60 focus:ring-2 focus:ring-primary/30"
-          placeholder="Tell me a bit about what you're building or thinking about…"
-        />
-        {errors.message && <span className="mt-1 block text-xs text-destructive">{errors.message}</span>}
-      </label>
-      <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
-        <p className="text-xs text-muted-foreground">
-          This opens your email app — no data is sent to a server.
-        </p>
-        <button
-          type="submit"
-          className="glow-purple inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-transform hover:-translate-y-0.5"
-        >
-          Send via Email
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M5 12h14M13 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </button>
-      </div>
-      {sent && (
-        <p className="mt-4 rounded-xl bg-primary/15 px-4 py-3 text-sm text-foreground">
-          Your email client should have opened. If not, write directly to{" "}
-          <a className="underline" href={`mailto:${EMAIL}`}>{EMAIL}</a>.
-        </p>
-      )}
-    </form>
-  );
-}
-
 function Contact() {
   return (
     <Section
@@ -659,52 +570,47 @@ function Contact() {
         </>
       }
     >
-      <div className="grid gap-8 lg:grid-cols-[1fr_1.2fr]">
-        <div className="reveal space-y-4">
-          <p className="max-w-md text-base text-muted-foreground">
-            I'm always happy to talk to other students, small teams and curious
-            people. Reach out about a project, a collaboration, or just to
-            share what you're working on.
-          </p>
-          <div className="space-y-3">
-            <a
-              href={`mailto:${EMAIL}`}
-              className="glass flex items-center justify-between rounded-2xl px-5 py-4 transition-colors hover:bg-white/10"
-            >
-              <div>
-                <div className="text-xs uppercase tracking-widest text-muted-foreground">Email</div>
-                <div className="font-serif text-lg">{EMAIL}</div>
-              </div>
-              <span aria-hidden>↗</span>
-            </a>
-            <a
-              href={GITHUB}
-              target="_blank"
-              rel="noreferrer noopener"
-              className="glass flex items-center justify-between rounded-2xl px-5 py-4 transition-colors hover:bg-white/10"
-            >
-              <div>
-                <div className="text-xs uppercase tracking-widest text-muted-foreground">GitHub</div>
-                <div className="font-serif text-lg">@adityabhalerao838-ai</div>
-              </div>
-              <span aria-hidden>↗</span>
-            </a>
-            <a
-              href={LINKEDIN}
-              target="_blank"
-              rel="noreferrer noopener"
-              className="glass flex items-center justify-between rounded-2xl px-5 py-4 transition-colors hover:bg-white/10"
-            >
-              <div>
-                <div className="text-xs uppercase tracking-widest text-muted-foreground">LinkedIn</div>
-                <div className="font-serif text-lg">Aditya Bhalerao</div>
-              </div>
-              <span aria-hidden>↗</span>
-            </a>
-          </div>
-        </div>
-        <div className="reveal">
-          <ContactForm />
+      <div className="reveal mx-auto max-w-2xl space-y-4">
+        <p className="text-base text-muted-foreground">
+          I'm always happy to talk to other students, small teams and curious
+          people. Reach out about a project, a collaboration, or just to share
+          what you're working on.
+        </p>
+        <div className="space-y-3">
+          <a
+            href={`mailto:${EMAIL}`}
+            className="glass flex items-center justify-between rounded-2xl px-5 py-4 transition-colors hover:bg-white/10"
+          >
+            <div>
+              <div className="text-xs uppercase tracking-widest text-muted-foreground">Email</div>
+              <div className="font-serif text-lg">{EMAIL}</div>
+            </div>
+            <span aria-hidden>↗</span>
+          </a>
+          <a
+            href={GITHUB}
+            target="_blank"
+            rel="noreferrer noopener"
+            className="glass flex items-center justify-between rounded-2xl px-5 py-4 transition-colors hover:bg-white/10"
+          >
+            <div>
+              <div className="text-xs uppercase tracking-widest text-muted-foreground">GitHub</div>
+              <div className="font-serif text-lg">@adityabhalerao838-ai</div>
+            </div>
+            <span aria-hidden>↗</span>
+          </a>
+          <a
+            href={LINKEDIN}
+            target="_blank"
+            rel="noreferrer noopener"
+            className="glass flex items-center justify-between rounded-2xl px-5 py-4 transition-colors hover:bg-white/10"
+          >
+            <div>
+              <div className="text-xs uppercase tracking-widest text-muted-foreground">LinkedIn</div>
+              <div className="font-serif text-lg">Aditya Bhalerao</div>
+            </div>
+            <span aria-hidden>↗</span>
+          </a>
         </div>
       </div>
     </Section>
