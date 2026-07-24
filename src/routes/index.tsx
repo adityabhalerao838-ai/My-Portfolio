@@ -218,8 +218,9 @@ function Hero() {
           </h1>
           <p className="mt-6 max-w-xl text-base text-muted-foreground sm:text-lg">
             Computer Science student &amp; developer. I write software with care —
-            grounding fundamentals in <span className="text-foreground">C++</span>,
-            and building modern products with the help of{" "}
+            grounding fundamentals in <span className="text-foreground">programming</span>,
+            and building modern products through{" "}
+            <span className="text-foreground">prompt engineering</span> and{" "}
             <span className="text-foreground">AI-assisted tooling</span>.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
