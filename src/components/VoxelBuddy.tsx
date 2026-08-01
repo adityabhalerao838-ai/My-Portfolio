@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 /**
- * Tiny voxel character that sits on the top edge of its parent container.
- * Parent must be `relative`. One variant is picked at random per page load
- * and stays stable for the session.
+ * A single tiny voxel character that travels between sections of the page.
+ * It perches on elements marked with `data-perch` inside the currently
+ * active section, walking from its old spot to the new one.
  */
 
 type Palette = {
@@ -82,7 +82,7 @@ function Character({ p }: { p: Palette }) {
       className="voxel-buddy-svg h-full w-full"
       shapeRendering="crispEdges"
       role="img"
-      aria-label={`Tiny voxel ${p.name} sitting on the card`}
+      aria-label={`Tiny voxel ${p.name} exploring the page`}
     >
       {/* legs */}
       <g className="vb-legs">
@@ -145,20 +145,141 @@ function Character({ p }: { p: Palette }) {
   );
 }
 
-export function VoxelBuddy({ className = "" }: { className?: string }) {
+const SECTION_IDS = ["home", "about", "skills", "projects", "building", "photo", "contact"];
+
+/**
+ * Single travelling companion. Mount once per page.
+ */
+export function VoxelBuddy() {
   const [variant, setVariant] = useState<Palette | null>(null);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const perchRef = useRef<HTMLElement | null>(null);
+  const anchorRef = useRef(0.72); // horizontal fraction on the perch
+  const posRef = useRef<{ x: number; y: number } | null>(null);
+  const rafRef = useRef<number | null>(null);
+  const walkingRef = useRef(false);
 
   useEffect(() => {
     setVariant(VARIANTS[Math.floor(Math.random() * VARIANTS.length)]!);
   }, []);
 
+  useEffect(() => {
+    if (!variant) return;
+    const el = rootRef.current;
+    if (!el) return;
+
+    const reduced =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    let activeSection: string | null = null;
+
+    const pickPerch = (sectionId: string) => {
+      const section = document.getElementById(sectionId);
+      if (!section) return;
+      const perches = Array.from(
+        section.querySelectorAll<HTMLElement>("[data-perch]"),
+      ).filter((p) => p.offsetWidth > 60 && p.offsetHeight > 20);
+      if (!perches.length) return;
+      let next = perches[Math.floor(Math.random() * perches.length)]!;
+      if (perches.length > 1 && next === perchRef.current) {
+        next = perches[(perches.indexOf(next) + 1) % perches.length]!;
+      }
+      perchRef.current = next;
+      anchorRef.current = 0.55 + Math.random() * 0.3;
+    };
+
+    const target = () => {
+      const p = perchRef.current;
+      if (!p) return null;
+      const r = p.getBoundingClientRect();
+      const w = el.offsetWidth;
+      const h = el.offsetHeight;
+      const x = Math.min(
+        Math.max(r.left + r.width * anchorRef.current - w / 2, 8),
+        window.innerWidth - w - 8,
+      );
+      return { x, y: r.top - h + (h > 55 ? 11 : 9) };
+    };
+
+    const tick = () => {
+      rafRef.current = requestAnimationFrame(tick);
+      const t = target();
+      if (!t) {
+        el.style.opacity = "0";
+        return;
+      }
+      const visible = t.y > -80 && t.y < window.innerHeight + 40;
+      el.style.opacity = visible ? "1" : "0";
+
+      if (!posRef.current || reduced) {
+        posRef.current = t;
+      } else {
+        const dx = t.x - posRef.current.x;
+        const dy = t.y - posRef.current.y;
+        const dist = Math.hypot(dx, dy);
+        if (dist < 0.6) {
+          posRef.current = t;
+        } else {
+          // cap speed so long trips read as a walk, not a jump
+          const step = Math.min(dist, Math.max(6, dist * 0.14));
+          posRef.current = {
+            x: posRef.current.x + (dx / dist) * step,
+            y: posRef.current.y + (dy / dist) * step,
+          };
+        }
+        const nowWalking = dist > 3;
+        if (nowWalking !== walkingRef.current) {
+          walkingRef.current = nowWalking;
+          el.classList.toggle("is-walking", nowWalking);
+        }
+        if (nowWalking) {
+          el.style.setProperty("--vb-flip", dx < -1 ? "-1" : "1");
+        }
+      }
+      el.style.transform = `translate3d(${posRef.current.x}px, ${posRef.current.y}px, 0) `;
+    };
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (!visible) return;
+        const id = visible.target.id;
+        if (id === activeSection) return;
+        activeSection = id;
+        pickPerch(id);
+      },
+      { rootMargin: "-35% 0px -45% 0px", threshold: [0, 0.2, 0.5, 1] },
+    );
+    SECTION_IDS.forEach((id) => {
+      const s = document.getElementById(id);
+      if (s) io.observe(s);
+    });
+
+    // initial placement in the hero
+    pickPerch("home");
+    rafRef.current = requestAnimationFrame(tick);
+
+    const onResize = () => {
+      posRef.current = null; // snap back onto the perch after reflow
+    };
+    window.addEventListener("resize", onResize);
+    window.addEventListener("orientationchange", onResize);
+
+    return () => {
+      io.disconnect();
+      window.removeEventListener("resize", onResize);
+      window.removeEventListener("orientationchange", onResize);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, [variant]);
+
   if (!variant) return null;
 
   return (
-    <div
-      className={`voxel-buddy pointer-events-none absolute select-none ${className}`}
-      aria-hidden={false}
-    >
+    <div ref={rootRef} className="voxel-buddy pointer-events-none select-none" aria-hidden={false}>
       <div className="voxel-buddy-inner h-full w-full">
         <Character p={variant} />
       </div>
