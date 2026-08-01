@@ -182,12 +182,21 @@ export function VoxelBuddy() {
     const pickPerch = (sectionId: string) => {
       const section = document.getElementById(sectionId);
       if (!section) return;
-      const all = Array.from(
-        section.querySelectorAll<HTMLElement>("[data-perch]"),
-      ).filter((p) => p.offsetWidth > 60 && p.offsetHeight > 20);
-      if (!all.length) return;
+      const usable = (list: HTMLElement[]) =>
+        list.filter((p) => p.offsetWidth > 60 && p.offsetHeight > 20);
+      const all = usable(
+        Array.from(section.querySelectorAll<HTMLElement>("[data-perch]")),
+      );
       // prefer perches whose top edge is currently on screen
-      const perches = all.filter(onScreen).length ? all.filter(onScreen) : all;
+      let perches = all.filter(onScreen);
+      if (!perches.length) {
+        // tall section scrolled past its cards — seat on any visible perch
+        perches = usable(
+          Array.from(document.querySelectorAll<HTMLElement>("[data-perch]")),
+        ).filter(onScreen);
+      }
+      if (!perches.length) perches = all;
+      if (!perches.length) return;
       let next = perches[Math.floor(Math.random() * perches.length)]!;
       if (perches.length > 1 && next === perchRef.current) {
         next = perches[(perches.indexOf(next) + 1) % perches.length]!;
@@ -195,6 +204,7 @@ export function VoxelBuddy() {
       perchRef.current = next;
       anchorRef.current = 0.55 + Math.random() * 0.3;
     };
+
 
 
     const target = () => {
