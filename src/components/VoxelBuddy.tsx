@@ -270,14 +270,22 @@ export function VoxelBuddy() {
     pickPerch("home");
     rafRef.current = requestAnimationFrame(tick);
 
+    // if the current perch drifts off screen (tall sections), hop to a better one
+    const keepVisible = window.setInterval(() => {
+      const p = perchRef.current;
+      if (activeSection && (!p || !onScreen(p))) pickPerch(activeSection);
+    }, 1000);
+
     const onResize = () => {
       posRef.current = null; // snap back onto the perch after reflow
+      if (activeSection) pickPerch(activeSection);
     };
     window.addEventListener("resize", onResize);
     window.addEventListener("orientationchange", onResize);
 
     return () => {
       io.disconnect();
+      window.clearInterval(keepVisible);
       window.removeEventListener("resize", onResize);
       window.removeEventListener("orientationchange", onResize);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
