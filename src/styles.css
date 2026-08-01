@@ -195,25 +195,49 @@
   border-radius: 1px;
 }
 
-/* ---------- Tiny voxel buddy (easter egg) ---------- */
+/* ---------- Tiny voxel buddy (travelling easter egg) ---------- */
 .voxel-buddy {
+  position: fixed;
+  left: 0;
+  top: 0;
   width: 34px;
   height: 51px;
-  right: 18px;
-  top: 0;
-  transform: translateY(calc(-100% + 9px));
-  z-index: 2;
+  --vb-flip: 1;
+  z-index: 30;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  will-change: transform;
   filter: drop-shadow(0 3px 0 oklch(0 0 0 / 0.35));
 }
 @media (min-width: 640px) {
-  .voxel-buddy { width: 42px; height: 63px; right: 28px; transform: translateY(calc(-100% + 11px)); }
+  .voxel-buddy { width: 42px; height: 63px; }
 }
-.voxel-buddy-inner { animation: vb-bob 3.2s ease-in-out infinite; transform-origin: 50% 100%; }
+.voxel-buddy-inner {
+  animation: vb-bob 3.2s ease-in-out infinite;
+  transform-origin: 50% 100%;
+  scale: var(--vb-flip) 1;
+}
+.voxel-buddy.is-walking .voxel-buddy-inner { animation: vb-walk 0.42s steps(2, end) infinite; }
+.voxel-buddy.is-walking .vb-legs { animation: vb-walk-legs 0.42s ease-in-out infinite; }
+.voxel-buddy.is-walking .vb-arm-l { animation: vb-walk-arm 0.42s ease-in-out infinite; }
+.voxel-buddy.is-walking .vb-arm-r { animation: vb-walk-arm 0.42s ease-in-out infinite reverse; }
 .voxel-buddy .vb-head { animation: vb-head 3.6s ease-in-out infinite; transform-origin: 8px 10px; }
 .voxel-buddy .vb-arm-l { animation: vb-arm 3.9s ease-in-out infinite; transform-origin: 3px 11px; }
 .voxel-buddy .vb-arm-r { animation: vb-arm 3.9s ease-in-out infinite reverse; transform-origin: 13px 11px; }
 .voxel-buddy .vb-legs { animation: vb-legs 4.2s ease-in-out infinite; transform-origin: 8px 17px; }
 .voxel-buddy .vb-glow { filter: drop-shadow(0 0 3px oklch(0.8 0.2 310 / 0.9)); }
+@keyframes vb-walk {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+@keyframes vb-walk-legs {
+  0%, 100% { transform: rotate(9deg); }
+  50% { transform: rotate(-9deg); }
+}
+@keyframes vb-walk-arm {
+  0%, 100% { transform: rotate(-14deg); }
+  50% { transform: rotate(14deg); }
+}
 .voxel-buddy-shadow {
   position: absolute;
   left: 50%;

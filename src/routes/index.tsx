@@ -346,7 +346,7 @@ function Hero() {
     <section id="home" className="relative flex min-h-screen items-center pt-28 md:pt-16">
       <div className="mx-auto grid w-full max-w-6xl gap-12 px-6 md:grid-cols-[1.15fr_1fr] md:items-center">
         <div className="reveal">
-          <p className="pixel mb-5 inline-flex items-center gap-2 glass px-3 py-1 text-[13px] text-muted-foreground">
+          <p data-perch className="pixel mb-5 inline-flex items-center gap-2 glass px-3 py-1 text-[13px] text-muted-foreground">
             <span className="voxel animate-flicker h-2 w-2" style={{ background: "oklch(0.78 0.14 85)" }} />
             Available for collaborations
           </p>
@@ -409,7 +409,7 @@ function Hero() {
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent" />
             </div>
           </div>
-          <div className="glass absolute -bottom-4 -left-4 px-4 py-3 text-xs">
+          <div data-perch className="glass absolute -bottom-4 -left-4 px-4 py-3 text-xs">
             <div className="pixel text-muted-foreground">Currently</div>
             <div className="mt-1 text-sm font-semibold">Diploma · Computer Science</div>
           </div>
@@ -464,7 +464,7 @@ function About() {
       }
     >
       <div className="grid gap-5 md:grid-cols-3">
-        <div className="reveal glass p-7 md:col-span-2">
+        <div data-perch className="reveal glass p-7 md:col-span-2">
           <p className="text-lg leading-relaxed text-foreground/85">
             I'm Aditya — a 2nd-year Diploma Computer Science student learning to
             build software the long way: from fundamentals up. My days move
@@ -479,7 +479,7 @@ function About() {
             what a single developer can put into the world.
           </p>
         </div>
-        <div className="reveal glass p-7">
+        <div data-perch className="reveal glass p-7">
           <div className="pixel text-[12px] text-muted-foreground">Currently</div>
           <ul className="mt-4 space-y-4 text-sm">
             <li className="flex gap-3">
@@ -525,7 +525,7 @@ function Skills() {
         {SKILLS.map((s, i) => (
           <article
             key={s.n}
-            className="reveal group glass relative overflow-hidden p-7 transition-transform duration-300 hover:-translate-y-1"
+            data-perch className="reveal group glass relative overflow-hidden p-7 transition-transform duration-300 hover:-translate-y-1"
           >
             {/* advancement corner icon */}
             <div className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 bg-primary/10 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100" />
@@ -579,7 +579,7 @@ function Projects() {
         {PROJECTS.map((p) => (
           <article
             key={p.title}
-            className="reveal group glass-strong relative flex flex-col overflow-hidden p-7 transition-transform duration-300 hover:-translate-y-1"
+            data-perch className="reveal group glass-strong relative flex flex-col overflow-hidden p-7 transition-transform duration-300 hover:-translate-y-1"
           >
             <div className="grass-top-bar absolute inset-x-0 top-0 h-1.5" />
             <div className="pointer-events-none absolute inset-x-0 -top-24 h-48 bg-gradient-to-b from-primary/15 to-transparent" />
@@ -615,7 +615,7 @@ function Projects() {
         ))}
 
         {/* Coming soon card — unfinished build in the fog */}
-        <article className="reveal glass relative flex min-h-[280px] flex-col items-center justify-center overflow-hidden p-8 text-center">
+        <article data-perch className="reveal glass relative flex min-h-[280px] flex-col items-center justify-center overflow-hidden p-8 text-center">
           <div className="pointer-events-none absolute inset-0 opacity-40">
             {/* fog gradient */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_60%,oklch(0.35_0.02_150/0.6),transparent_70%)]" />
@@ -665,7 +665,7 @@ function Building() {
       }
     >
       <div className="grid gap-5 md:grid-cols-[1.2fr_1fr]">
-        <div className="reveal glass-strong relative overflow-hidden p-8 md:p-10">
+        <div data-perch className="reveal glass-strong relative overflow-hidden p-8 md:p-10">
           <div className="grass-top-bar absolute inset-x-0 top-0 h-2" />
           <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-primary/20 blur-3xl" />
           {/* crafting-slot grid */}
@@ -696,7 +696,7 @@ function Building() {
             ))}
           </div>
         </div>
-        <div className="reveal glass p-7">
+        <div data-perch className="reveal glass p-7">
           <div className="pixel text-[12px] text-muted-foreground">Learning focus</div>
           <ul className="mt-4 space-y-4">
             {focus.map((f, i) => (
@@ -727,7 +727,7 @@ function PhotoSection() {
     >
       <div className="grid gap-10 md:grid-cols-2 md:items-center">
         <div className="reveal relative mx-auto w-full max-w-md">
-          <div className="glass-strong glow-purple overflow-hidden p-3">
+          <div data-perch className="glass-strong glow-purple overflow-hidden p-3">
             <div className="grass-top-bar absolute inset-x-3 top-3 z-10 h-1.5" />
             <div className="overflow-hidden ring-1 ring-white/10">
               <img
@@ -741,11 +741,11 @@ function PhotoSection() {
               />
             </div>
           </div>
-          <div className="glass pixel absolute -bottom-4 left-6 px-4 py-2 text-sm text-foreground">
+          <div data-perch className="glass pixel absolute -bottom-4 left-6 px-4 py-2 text-sm text-foreground">
             Aditya · 2026
           </div>
         </div>
-        <div className="reveal">
+        <div data-perch className="reveal">
           <blockquote className="text-xl font-semibold leading-snug text-foreground/90 sm:text-2xl md:text-3xl">
             "I don't want to build fast. I want to build things that feel
             considered — even if I'm the only one who notices."
@@ -773,8 +773,7 @@ function Contact() {
       }
     >
       <div className="reveal mx-auto max-w-2xl space-y-4">
-        <div className="glass relative mt-14 px-5 py-5 sm:mt-16">
-          <VoxelBuddy />
+        <div data-perch className="glass relative mt-14 px-5 py-5 sm:mt-16">
           <div className="voxel-divider mb-4 w-16" aria-hidden />
           <p className="text-base text-muted-foreground">
             I'm always happy to talk to other students, small teams and curious
@@ -786,7 +785,7 @@ function Contact() {
 
           <a
             href={`mailto:${EMAIL}`}
-            className="glass card-lift flex items-center justify-between px-5 py-4 transition-colors hover:bg-white/10"
+            data-perch className="glass card-lift flex items-center justify-between px-5 py-4 transition-colors hover:bg-white/10"
           >
             <div className="min-w-0">
               <div className="pixel text-[11px] text-muted-foreground">Email</div>
@@ -798,7 +797,7 @@ function Contact() {
             href={GITHUB}
             target="_blank"
             rel="noreferrer noopener"
-            className="glass card-lift flex items-center justify-between px-5 py-4 transition-colors hover:bg-white/10"
+            data-perch className="glass card-lift flex items-center justify-between px-5 py-4 transition-colors hover:bg-white/10"
           >
             <div className="min-w-0">
               <div className="pixel text-[11px] text-muted-foreground">GitHub</div>
@@ -810,7 +809,7 @@ function Contact() {
             href={LINKEDIN}
             target="_blank"
             rel="noreferrer noopener"
-            className="glass card-lift flex items-center justify-between px-5 py-4 transition-colors hover:bg-white/10"
+            data-perch className="glass card-lift flex items-center justify-between px-5 py-4 transition-colors hover:bg-white/10"
           >
             <div className="min-w-0">
               <div className="pixel text-[11px] text-muted-foreground">LinkedIn</div>
@@ -859,6 +858,7 @@ function Portfolio() {
   return (
     <main className="relative min-h-screen overflow-x-hidden">
       <Decor />
+      <VoxelBuddy />
       <Nav />
       <Hero />
       <About />
