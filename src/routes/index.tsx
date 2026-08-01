@@ -786,7 +786,7 @@ function Contact() {
 
           <a
             href={`mailto:${EMAIL}`}
-            className="glass flex items-center justify-between px-5 py-4 transition-colors hover:bg-white/10"
+            className="glass card-lift flex items-center justify-between px-5 py-4 transition-colors hover:bg-white/10"
           >
             <div className="min-w-0">
               <div className="pixel text-[11px] text-muted-foreground">Email</div>
@@ -798,7 +798,7 @@ function Contact() {
             href={GITHUB}
             target="_blank"
             rel="noreferrer noopener"
-            className="glass flex items-center justify-between px-5 py-4 transition-colors hover:bg-white/10"
+            className="glass card-lift flex items-center justify-between px-5 py-4 transition-colors hover:bg-white/10"
           >
             <div className="min-w-0">
               <div className="pixel text-[11px] text-muted-foreground">GitHub</div>
@@ -810,7 +810,7 @@ function Contact() {
             href={LINKEDIN}
             target="_blank"
             rel="noreferrer noopener"
-            className="glass flex items-center justify-between px-5 py-4 transition-colors hover:bg-white/10"
+            className="glass card-lift flex items-center justify-between px-5 py-4 transition-colors hover:bg-white/10"
           >
             <div className="min-w-0">
               <div className="pixel text-[11px] text-muted-foreground">LinkedIn</div>
