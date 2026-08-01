@@ -745,7 +745,7 @@ function PhotoSection() {
             Aditya · 2026
           </div>
         </div>
-        <div className="reveal">
+        <div data-perch className="reveal">
           <blockquote className="text-xl font-semibold leading-snug text-foreground/90 sm:text-2xl md:text-3xl">
             "I don't want to build fast. I want to build things that feel
             considered — even if I'm the only one who notices."
