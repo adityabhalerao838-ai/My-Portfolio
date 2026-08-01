@@ -174,13 +174,20 @@ export function VoxelBuddy() {
 
     let activeSection: string | null = null;
 
+    const onScreen = (p: HTMLElement) => {
+      const r = p.getBoundingClientRect();
+      return r.top > 80 && r.top < window.innerHeight - 40;
+    };
+
     const pickPerch = (sectionId: string) => {
       const section = document.getElementById(sectionId);
       if (!section) return;
-      const perches = Array.from(
+      const all = Array.from(
         section.querySelectorAll<HTMLElement>("[data-perch]"),
       ).filter((p) => p.offsetWidth > 60 && p.offsetHeight > 20);
-      if (!perches.length) return;
+      if (!all.length) return;
+      // prefer perches whose top edge is currently on screen
+      const perches = all.filter(onScreen).length ? all.filter(onScreen) : all;
       let next = perches[Math.floor(Math.random() * perches.length)]!;
       if (perches.length > 1 && next === perchRef.current) {
         next = perches[(perches.indexOf(next) + 1) % perches.length]!;
@@ -188,6 +195,7 @@ export function VoxelBuddy() {
       perchRef.current = next;
       anchorRef.current = 0.55 + Math.random() * 0.3;
     };
+
 
     const target = () => {
       const p = perchRef.current;
