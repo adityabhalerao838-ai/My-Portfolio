@@ -230,7 +230,7 @@ export function VoxelBuddy() {
           posRef.current = t;
         } else {
           // cap speed so long trips read as a walk, not a jump
-          const step = Math.min(dist, Math.max(6, dist * 0.14));
+          const step = Math.min(dist, Math.max(10, dist * 0.2));
           posRef.current = {
             x: posRef.current.x + (dx / dist) * step,
             y: posRef.current.y + (dy / dist) * step,
@@ -274,7 +274,7 @@ export function VoxelBuddy() {
     const keepVisible = window.setInterval(() => {
       const p = perchRef.current;
       if (activeSection && (!p || !onScreen(p))) pickPerch(activeSection);
-    }, 1000);
+    }, 500);
 
     const onResize = () => {
       posRef.current = null; // snap back onto the perch after reflow
