@@ -727,7 +727,7 @@ function PhotoSection() {
     >
       <div className="grid gap-10 md:grid-cols-2 md:items-center">
         <div className="reveal relative mx-auto w-full max-w-md">
-          <div className="glass-strong glow-purple overflow-hidden p-3">
+          <div data-perch className="glass-strong glow-purple overflow-hidden p-3">
             <div className="grass-top-bar absolute inset-x-3 top-3 z-10 h-1.5" />
             <div className="overflow-hidden ring-1 ring-white/10">
               <img
