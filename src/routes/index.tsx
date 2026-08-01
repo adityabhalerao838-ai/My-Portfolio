@@ -771,12 +771,17 @@ function Contact() {
       }
     >
       <div className="reveal mx-auto max-w-2xl space-y-4">
-        <p className="text-base text-muted-foreground">
-          I'm always happy to talk to other students, small teams and curious
-          people. Reach out about a project, a collaboration, or just to share
-          what you're working on.
-        </p>
+        <div className="glass relative mt-14 px-5 py-5 sm:mt-16">
+          <VoxelBuddy />
+          <div className="voxel-divider mb-4 w-16" aria-hidden />
+          <p className="text-base text-muted-foreground">
+            I'm always happy to talk to other students, small teams and curious
+            people. Reach out about a project, a collaboration, or just to share
+            what you're working on.
+          </p>
+        </div>
         <div className="space-y-3">
+
           <a
             href={`mailto:${EMAIL}`}
             className="glass flex items-center justify-between px-5 py-4 transition-colors hover:bg-white/10"
