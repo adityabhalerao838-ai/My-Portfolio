@@ -773,8 +773,7 @@ function Contact() {
       }
     >
       <div className="reveal mx-auto max-w-2xl space-y-4">
-        <div className="glass relative mt-14 px-5 py-5 sm:mt-16">
-          <VoxelBuddy />
+        <div data-perch className="glass relative mt-14 px-5 py-5 sm:mt-16">
           <div className="voxel-divider mb-4 w-16" aria-hidden />
           <p className="text-base text-muted-foreground">
             I'm always happy to talk to other students, small teams and curious
