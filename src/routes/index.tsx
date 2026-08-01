@@ -858,6 +858,7 @@ function Portfolio() {
   return (
     <main className="relative min-h-screen overflow-x-hidden">
       <Decor />
+      <VoxelBuddy />
       <Nav />
       <Hero />
       <About />
