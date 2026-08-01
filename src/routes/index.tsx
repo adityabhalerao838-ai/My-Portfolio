@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import portraitAsset from "@/assets/aditya.png.asset.json";
+import { VoxelBuddy } from "@/components/VoxelBuddy";
+
 const portrait = portraitAsset.url;
 
 export const Route = createFileRoute("/")({
@@ -771,15 +773,20 @@ function Contact() {
       }
     >
       <div className="reveal mx-auto max-w-2xl space-y-4">
-        <p className="text-base text-muted-foreground">
-          I'm always happy to talk to other students, small teams and curious
-          people. Reach out about a project, a collaboration, or just to share
-          what you're working on.
-        </p>
+        <div className="glass relative mt-14 px-5 py-5 sm:mt-16">
+          <VoxelBuddy />
+          <div className="voxel-divider mb-4 w-16" aria-hidden />
+          <p className="text-base text-muted-foreground">
+            I'm always happy to talk to other students, small teams and curious
+            people. Reach out about a project, a collaboration, or just to share
+            what you're working on.
+          </p>
+        </div>
         <div className="space-y-3">
+
           <a
             href={`mailto:${EMAIL}`}
-            className="glass flex items-center justify-between px-5 py-4 transition-colors hover:bg-white/10"
+            className="glass card-lift flex items-center justify-between px-5 py-4 transition-colors hover:bg-white/10"
           >
             <div className="min-w-0">
               <div className="pixel text-[11px] text-muted-foreground">Email</div>
@@ -791,7 +798,7 @@ function Contact() {
             href={GITHUB}
             target="_blank"
             rel="noreferrer noopener"
-            className="glass flex items-center justify-between px-5 py-4 transition-colors hover:bg-white/10"
+            className="glass card-lift flex items-center justify-between px-5 py-4 transition-colors hover:bg-white/10"
           >
             <div className="min-w-0">
               <div className="pixel text-[11px] text-muted-foreground">GitHub</div>
@@ -803,7 +810,7 @@ function Contact() {
             href={LINKEDIN}
             target="_blank"
             rel="noreferrer noopener"
-            className="glass flex items-center justify-between px-5 py-4 transition-colors hover:bg-white/10"
+            className="glass card-lift flex items-center justify-between px-5 py-4 transition-colors hover:bg-white/10"
           >
             <div className="min-w-0">
               <div className="pixel text-[11px] text-muted-foreground">LinkedIn</div>
